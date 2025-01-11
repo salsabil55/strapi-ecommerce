@@ -369,12 +369,12 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
-  collectionName: 'courses';
+export interface ApiBookmarkBookmark extends Struct.CollectionTypeSchema {
+  collectionName: 'bookmarks';
   info: {
-    displayName: 'course';
-    pluralName: 'courses';
-    singularName: 'course';
+    displayName: 'Bookmark';
+    pluralName: 'bookmarks';
+    singularName: 'bookmark';
   };
   options: {
     draftAndPublish: true;
@@ -383,14 +383,123 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bookmark.bookmark'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
+  };
+}
+
+export interface ApiCartCart extends Struct.CollectionTypeSchema {
+  collectionName: 'carts';
+  info: {
+    displayName: 'Cart';
+    pluralName: 'carts';
+    singularName: 'cart';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
+  };
+}
+
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    description: '';
+    displayName: 'Service';
+    pluralName: 'courses';
+    singularName: 'course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Author: Schema.Attribute.String;
+    Author_ar: Schema.Attribute.String;
+    AvailableDiscount: Schema.Attribute.Boolean;
+    booked: Schema.Attribute.Boolean;
+    Category: Schema.Attribute.Enumeration<
+      [
+        'Languages',
+        'Technology, Science & Productivity ',
+        'Saudi Courses',
+        'Media, Photography & Film',
+      ]
+    >;
+    courseLanguage: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks;
+    description_ar: Schema.Attribute.Blocks;
+    Duration: Schema.Attribute.String;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::course.course'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    name_ar: Schema.Attribute.String;
+    orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
+  collectionName: 'orders';
+  info: {
+    displayName: 'order';
+    pluralName: 'orders';
+    singularName: 'order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    services: Schema.Attribute.Relation<'manyToMany', 'api::course.course'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -906,7 +1015,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::bookmark.bookmark': ApiBookmarkBookmark;
+      'api::cart.cart': ApiCartCart;
       'api::course.course': ApiCourseCourse;
+      'api::order.order': ApiOrderOrder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

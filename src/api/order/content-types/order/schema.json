@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "order"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "inversedBy": "orders"
+    }
+  }
+}

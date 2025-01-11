@@ -4,15 +4,71 @@
   "info": {
     "singularName": "course",
     "pluralName": "courses",
-    "displayName": "course"
+    "displayName": "Service",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "name": {
       "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "Languages",
+        "Technology, Science & Productivity ",
+        "Saudi Courses",
+        "Media, Photography & Film"
+      ]
+    },
+    "AvailableDiscount": {
+      "type": "boolean"
+    },
+    "Author": {
+      "type": "string"
+    },
+    "Duration": {
+      "type": "string"
+    },
+    "courseLanguage": {
+      "type": "string"
+    },
+    "booked": {
+      "type": "boolean"
+    },
+    "name_ar": {
+      "type": "string"
+    },
+    "Author_ar": {
+      "type": "string"
+    },
+    "description_ar": {
+      "type": "blocks"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::order.order",
+      "mappedBy": "services"
     }
   }
 }
