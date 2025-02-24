@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "language",
+        "media"
+      ]
+    },
+    "AvailableDiscount": {
+      "type": "boolean"
+    },
+    "Author": {
+      "type": "string"
+    },
+    "Duration": {
+      "type": "string"
+    },
+    "courseLanguage": {
+      "type": "string"
+    },
+    "booked": {
+      "type": "boolean"
+    },
+    "name_ar": {
+      "type": "string"
+    },
+    "Author_ar": {
+      "type": "string"
+    },
+    "description_ar": {
+      "type": "string"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "service"
+    },
+    "bookmarks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::bookmark.bookmark",
+      "mappedBy": "services"
+    }
+  }
+}
